@@ -38,6 +38,12 @@ module Backend
       g.skip_routes true
       g.assets false
       g.helper false
+      g.test_framework :rspec,
+                       view_spec: false,
+                       helper_spec: false,
+                       controller_spec: false,
+                       routing_spec: false,
+                       require_spec: false
     end
   end
 end
