@@ -1,7 +1,7 @@
 module Jwt::TokenProvider
   extend self
 
-  def call(token)
+  def call(payload)
     issue_token(payload)
   end
 
