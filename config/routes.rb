@@ -34,6 +34,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :users, only: %i[index create]
     resource :session, only: %i[create destroy]
-    resources :microposts, only: %i[index create update destroy]
+    resources :microposts, only: %i[index show create update destroy]
   end
 end

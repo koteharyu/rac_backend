@@ -18,6 +18,22 @@ RSpec.describe "Api::Microposts", type: :request do
     end
   end
 
+  describe 'GET /api/microposts/:id' do
+    let(:micropost) { create(:micropost)}
+    it '投稿の詳細の取得に成功すること' do
+      get api_micropost_path(micropost)
+      expect(response).to have_http_status(200)
+      json = JSON.parse(response.body)
+      expect(json['micropost']).to include(
+        'id' => micropost.id,
+        'content' => micropost.content,
+        'user' => include(
+          'id' => micropost.user.id
+        )
+      )
+    end
+  end
+
   describe 'POST /api/microposts' do
     let(:user) { create(:user) }
     let(:token) { Jwt::TokenProvider.call(user_id: user.id)}
