@@ -90,10 +90,18 @@ RSpec.describe "Api::Microposts", type: :request do
       end
     end
 
-    context '不正なパラメータの場合' do
-      let(:invalid_params) { { micropost: { content: nil}}}
+    context 'contentが空場合' do
+      let(:nil_params) { { micropost: { content: nil}}}
       it '422 statusが返ること' do
-        patch api_micropost_path(micropost), params: invalid_params, headers: headers
+        patch api_micropost_path(micropost), params: nil_params, headers: headers
+        expect(response).to have_http_status(422)
+      end
+    end
+
+    context 'contentが140文字以上である場合' do
+      let(:more_than_params) { { micropost: { content: "a" * 141 }}}
+      it '422 statusが返ること' do
+        patch api_micropost_path(micropost), params: more_than_params, headers: headers
         expect(response).to have_http_status(422)
       end
     end

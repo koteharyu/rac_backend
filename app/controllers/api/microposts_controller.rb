@@ -2,7 +2,7 @@ class Api::MicropostsController < ApplicationController
   before_action :authenticate, only: %i[create update destroy]
 
   def index
-    microposts = Micropost.includes(:user)
+    microposts = Micropost.includes(:user).order(created_at: :desc)
     render json: microposts, each_serializer: MicropostSerializer
   end
 
