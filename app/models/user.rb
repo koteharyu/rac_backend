@@ -5,4 +5,5 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   has_many :microposts, dependent: :destroy
+  has_one_attached :avatar
 end
