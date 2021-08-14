@@ -12,7 +12,7 @@ RSpec.describe 'Api::Users', type: :request do
         'name' => user.name,
         'email' => user.email,
         'introduction' => be_present,
-        'avatar_url' => nil
+        'avatar_url' => be_present
       )
     end
   end
