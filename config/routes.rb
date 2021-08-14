@@ -32,8 +32,12 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
-    resources :users, only: %i[index create]
+    resources :users, only: %i[index show create]
     resource :session, only: %i[create destroy]
     resources :microposts, only: %i[index show create update destroy]
+
+    namespace :me do
+      resource :account, only: %i[update]
+    end
   end
 end
