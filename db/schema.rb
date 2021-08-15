@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_15_084000) do
+ActiveRecord::Schema.define(version: 2021_08_15_090109) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 2021_08_15_084000) do
     t.index ["name"], name: "index_tags_on_name"
   end
 
+  create_table "user_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tag_id"], name: "index_user_tags_on_tag_id"
+    t.index ["user_id", "tag_id"], name: "index_user_tags_on_user_id_and_tag_id", unique: true
+    t.index ["user_id"], name: "index_user_tags_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -60,4 +70,6 @@ ActiveRecord::Schema.define(version: 2021_08_15_084000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "microposts", "users"
+  add_foreign_key "user_tags", "tags"
+  add_foreign_key "user_tags", "users"
 end
