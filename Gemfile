@@ -26,6 +26,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'jwt'
 gem 'faker'
 gem 'active_storage_base64'
+gem 'kaminari'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
