@@ -2,7 +2,11 @@ class Api::UsersController < ApplicationController
 
   def index
     users = User.all
-    render json: users, each_serializer: UserSerializer
+    render json: users, each_serializer: UserSerializer, meta: {
+      total_pages: users.total_pages,
+      total_count: users.total_count,
+      current_page: users.current_page
+    }
   end
 
   def show
