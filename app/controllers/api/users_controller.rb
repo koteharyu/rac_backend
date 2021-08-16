@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
 
   def index
     search_users_form = SearchUsersForm.new(search_params)
-    users = search_users_form.order(created_at: :desc).page(params[:page]).per(PER_PAGE)
+    users = search_users_form.search.order(created_at: :desc).page(params[:page]).per(PER_PAGE)
     render json: users, each_serializer: UserSerializer, meta: {
       total_pages: users.total_pages,
       total_count: users.total_count,
@@ -29,6 +29,6 @@ class Api::UsersController < ApplicationController
   end
 
   def search_params
-    params[:q]&.permit(:name, :tag_ids: [])
+    params[:q]&.permit(:name, tag_ids: [])
   end
 end

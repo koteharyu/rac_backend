@@ -11,7 +11,8 @@ RSpec.describe 'Api::Users', type: :request do
         expect(json['users']).to match_array(users.map {|user| include(
           'id' => user.id,
           'name' => user.name,
-          'email' => user.email
+          'email' => user.email,
+          'tag' => be_a(Array)
         )})
       end
     end
