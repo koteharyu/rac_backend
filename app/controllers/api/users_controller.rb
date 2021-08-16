@@ -2,7 +2,8 @@ class Api::UsersController < ApplicationController
   PER_PAGE = 12
 
   def index
-    users = User.order(created_at: :desc).page(params[:page]).per(PER_PAGE)
+    search_users_form = SearchUsersForm.new(search_params)
+    users = search_users_form.order(created_at: :desc).page(params[:page]).per(PER_PAGE)
     render json: users, each_serializer: UserSerializer, meta: {
       total_pages: users.total_pages,
       total_count: users.total_count,
@@ -25,5 +26,9 @@ class Api::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def search_params
+    params[:q]&.permit(:name, :tag_ids: [])
   end
 end
